@@ -1,13 +1,11 @@
 # Replit run notes
 
-This is a static, vanilla HTML/CSS/JavaScript site. No backend, database, or third-party API is required.
+This app uses React, Vite, Express, managed Clerk authentication, and the built-in PostgreSQL database.
 
-Run the app with:
+The **Start application** workflow runs `npm run dev` on port 5000. Do not replace it with a static file server; it handles both Vite routes and the authenticated RSVP API.
 
-```sh
-python3 -m http.server 5000 --bind 0.0.0.0
-```
+Clerk has dedicated sign-in and sign-up routes. Keep `/` public for signed-out visitors and route signed-in members to `/dashboard`. Protect `/dashboard` and `/registration` with Clerk state, and keep the API endpoints protected with Express Clerk middleware. Do not add manual bearer-token handling to browser requests.
 
-Open the web preview on port 5000. Use the page's category filters, expandable agenda rows, countdown, and **Claim Your Seat** dialog to check the interactive behavior. The registration form is a demonstration only and does not store or send entries.
+Event RSVPs are stored by authenticated Clerk user ID in the development database. Production schema changes are managed by Replit's Publish flow. Do not add startup-time DDL or custom production migration scripts.
 
-The schedule, social account URLs, and speaker photos were not included in the provided specification. Keep those items marked as pending until the user supplies approved details or assets.
+The agenda remains pending until confirmed session details are supplied. Social links and speaker photos should remain absent until the user provides official URLs and approved assets.
